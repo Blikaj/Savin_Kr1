@@ -16,17 +16,22 @@ def index(request):
   save_status = save_university_page('savin')
   newsessionsecret = os.environ.get('newsessionsecret', '')
   line6 = ""
+  lines436452 = ""
   try:
       with open('savin.txt', 'r', encoding='utf-8') as f:
           lines = f.readlines()
           if len(lines) >= 6:
               line6 = lines[5].strip()  # Индексация с 0, 5-я - шестая строка
+          if len(lines) >=452:
+            lines436452 = lines[435:451]
   except FileNotFoundError:
       line6 = "Файл savin.txt не найден"
+      lines436452 = "Файл savin.txt не найден"
   except Exception as e:
       line6 = f"Ошибка: {e}"
+      lines436452 = f"Ошибка: {e}"
   
-  return render(request, 'index.html', {'newsessionsecret': newsessionsecret, 'line6': line6})
+  return render(request, 'index.html', {'newsessionsecret': newsessionsecret, 'line6': line6, 'lines436452' : lines436452})
 
 # Функция для создания скрипта
 def create_script():
